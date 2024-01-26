@@ -9,7 +9,7 @@ const follow = require('./follow'); // function to hop multiple links by "rel"
 
 const stompClient = require('./websocket-listener');
 
-const root = '/api';
+const root = '/api'; 
 
 class App extends React.Component {
 
