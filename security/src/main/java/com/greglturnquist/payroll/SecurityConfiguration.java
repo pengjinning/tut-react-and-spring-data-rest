@@ -1,4 +1,12 @@
 /*
+ * @Author: jack ning github@bytedesk.com
+ * @Date: 2024-01-25 23:53:50
+ * @LastEditors: jack ning github@bytedesk.com
+ * @LastEditTime: 2024-01-31 12:44:00
+ * @FilePath: /tut-react-and-spring-data-rest/security/src/main/java/com/greglturnquist/payroll/SecurityConfiguration.java
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+/*
  * Copyright 2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,25 +46,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter { // <3>
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
-			.userDetailsService(this.userDetailsService)
+				.userDetailsService(this.userDetailsService)
 				.passwordEncoder(Manager.PASSWORD_ENCODER);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception { // <5>
 		http
-			.authorizeRequests()
+				.authorizeRequests()
 				.antMatchers("/built/**", "/main.css").permitAll()
 				.anyRequest().authenticated()
 				.and()
-			.formLogin()
+				.formLogin()
 				.defaultSuccessUrl("/", true)
 				.permitAll()
 				.and()
-			.httpBasic()
+				.httpBasic()
 				.and()
-			.csrf().disable()
-			.logout()
+				.csrf().disable()
+				.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin().disable()))
+				.logout()
 				.logoutSuccessUrl("/");
 	}
 
